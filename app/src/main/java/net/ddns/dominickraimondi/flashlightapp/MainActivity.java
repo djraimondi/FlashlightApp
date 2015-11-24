@@ -6,24 +6,35 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
-//import android.hardware.camera2;
-
-import java.security.Policy;
 
 public class MainActivity extends AppCompatActivity {
 
     //Starting variables
     private Camera camera;
     private boolean appNoCrash = false;
-    //private android.hardware.camera2.CameraDevice cameraNew;
+
+    //private CameraManager manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+
     ImageButton flashlightSwitchImg;
     private boolean isFlashlightOn;
     Camera.Parameters params;
 
+    @Override
+    public void onPause() {
+        super.onPause();  // Always call the superclass method first
+
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
