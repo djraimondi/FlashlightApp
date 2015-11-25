@@ -27,6 +27,11 @@ public class MainActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();  // Always call the superclass method first
 
+        if (camera != null) {
+            camera.release();
+            camera = null;
+        }
+
     }
 
 
@@ -34,6 +39,23 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();  // Always call the superclass method first
 
+        if (camera == null) {
+            initializeCamera();
+        }
+
+    }
+
+    public void initializeCamera()
+    {
+        boolean isCameraFlash = getApplicationContext().getPackageManager()
+                .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+
+        if (!isCameraFlash) {
+            showNoCameraAlert();
+        } else {
+            camera = Camera.open();
+            params = camera.getParameters();
+        }
     }
 
     @Override
@@ -44,15 +66,7 @@ public class MainActivity extends AppCompatActivity {
         // flashlight on off Image
         flashlightSwitchImg = (ImageButton) findViewById(R.id.flashlightSwitch);
 
-        boolean isCameraFlash = getApplicationContext().getPackageManager()
-                .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
 
-        if (!isCameraFlash) {
-            showNoCameraAlert();
-        } else {
-            camera = Camera.open();
-            params = camera.getParameters();
-        }
 
         flashlightSwitchImg.setOnClickListener(new View.OnClickListener() {
             @Override
